@@ -7,12 +7,12 @@ import Alert from "./Alert";
 import searchSurveySchema from "../schema/searchSurvey";
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "./Spinner";
-import Question from "../Interface/Question";
 import { z } from "zod";
 import { AlertType } from "../enum/AlertType";
+import PrescreenQuestions from "../Interface/PrescreenQuestions";
 
 interface Props {
-  onFilter: (question: Question[]) => void;
+  onFilter: (question: PrescreenQuestions[]) => void;
 }
 type searchSurvey = z.infer<typeof searchSurveySchema>;
 
@@ -20,6 +20,7 @@ const Filter = ({ onFilter }: Props) => {
   const {
     register,
     getValues,
+    handleSubmit,
     formState: { errors },
   } = useForm<searchSurvey>({
     resolver: zodResolver(searchSurveySchema),
@@ -32,7 +33,7 @@ const Filter = ({ onFilter }: Props) => {
     try {
       const data = getValues();
       setSubmitting(true);
-      const res = await axios.get<Question[]>(
+      const res = await axios.get<PrescreenQuestions[]>(
         `/api/survey?gender=${data.gender}&birthDate=${data.birthDate}`
       );
       onFilter(res.data);
@@ -47,7 +48,7 @@ const Filter = ({ onFilter }: Props) => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   return (
-    <>
+    <form onSubmit={handleSubmit(filterClick)}>
       <div>
         {error && (
           <Alert message={error} showIcon={true} type={AlertType.Error} />
@@ -80,17 +81,16 @@ const Filter = ({ onFilter }: Props) => {
         </div>
         <div className="ml-2">
           <button
-            onClick={filterClick}
             disabled={isSubmitting}
             className="btn btn-primary"
-            // type="submit"
+            type="submit"
           >
             Search
             {isSubmitting && <Spinner />}
           </button>
         </div>
       </div>
-    </>
+    </form>
   );
 };
 
