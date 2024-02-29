@@ -7,7 +7,7 @@ describe("Alert Component", () => {
     title: "What's your marital status?",
     question_type: "single_select",
     possible_answers: ["Single", "Married", "Divorced"],
-    acceptable_answers: ["Married"],
+    acceptable_answer: ["Married"],
   };
 
   test("renders label and select box properly", () => {

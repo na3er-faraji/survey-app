@@ -18,6 +18,5 @@ describe("Alert Component", () => {
     );
     const iconElement = getByTestId("alert-icon");
     expect(iconElement).toBeInTheDocument();
-    // You can add more assertions for icon attributes or styles if needed
   });
 });

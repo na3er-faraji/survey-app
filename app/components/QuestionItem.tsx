@@ -11,10 +11,8 @@ interface Props {
 type QuestionItem = z.infer<typeof selectQuestionAnswerSchema>;
 
 const QuestionItem = ({ question, onSelect }: Props) => {
-  // const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    // setSelectedOption(event.target.value);
     onSelect({
       name: question.name,
       selectedAnswer: event.target.value,
