@@ -6,7 +6,7 @@ import { calculateAge } from "@/app/helper/util";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  
+
   const gender = searchParams.get("gender");
   const birthDate = searchParams.get("birthDate");
 
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       { "matching_profile.gender": gender },
       { "matching_profile.age": age },
     ],
-  }).sort({ reward_amount: "asc" });
+  }).sort({ reward_amount: "desc" });
 
   return NextResponse.json(survey);
 }

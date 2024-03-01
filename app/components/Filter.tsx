@@ -9,10 +9,10 @@ import ErrorMessage from "./ErrorMessage";
 import Spinner from "./Spinner";
 import { z } from "zod";
 import { AlertType } from "../enum/AlertType";
-import PrescreenQuestions from "../Interface/PrescreenQuestions";
+import Question from "../Interface/Question";
 
 interface Props {
-  onFilter: (question: PrescreenQuestions[]) => void;
+  onFilter: (question: Question[]) => void;
 }
 type searchSurvey = z.infer<typeof searchSurveySchema>;
 
@@ -33,7 +33,7 @@ const Filter = ({ onFilter }: Props) => {
     try {
       const data = getValues();
       setSubmitting(true);
-      const res = await axios.get<PrescreenQuestions[]>(
+      const res = await axios.get<Question[]>(
         `/api/survey?gender=${data.gender}&birthDate=${data.birthDate}`
       );
       onFilter(res.data);
